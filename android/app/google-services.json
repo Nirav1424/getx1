@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "678141302743",
+    "project_id": "getx-52c37",
+    "storage_bucket": "getx-52c37.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678141302743:android:c6beb784c67232ad7c1d92",
+        "android_client_info": {
+          "package_name": "com.example.getx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcKQJgC9nwpodYWFq09HIlODfVKm_Zy2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
