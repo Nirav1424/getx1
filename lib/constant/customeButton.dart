@@ -13,9 +13,11 @@ class CustomButton extends StatelessWidget {
   final double padding;
   final double height;
   final bool isLoading;
+  final Color color;
 
   // Constructor with required properties
   CustomButton({
+    this.color = AppColors.primaryColor,
     required this.text,
     required this.onTap,
     this.isLoading = false,
@@ -42,7 +44,7 @@ class CustomButton extends StatelessWidget {
                   // Only horizontal padding
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
+                    color: color,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: FittedBox(

@@ -4,6 +4,7 @@ import 'package:getx/constant/AppColors.dart';
 
 import '../Models/UserModel.dart';
 import '../controller/profileController.dart';
+import 'User.dart';
 
 class HomePage extends StatelessWidget {
   final profilecontroller = Get.put(profileController());
@@ -58,10 +59,10 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        // Action when tapped
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Tapped on ${userData.name}")),
-                        );
+                        Get.to(User(), arguments: userData.email.toString());
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(content: Text("Tapped on ${userData.name}")),
+                        // );
                       },
                     ),
                   );

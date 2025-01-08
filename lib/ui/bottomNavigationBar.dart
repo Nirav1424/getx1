@@ -5,10 +5,10 @@ import 'package:getx/constant/AppColors.dart';
 import 'package:getx/ui/Setting.dart';
 import 'package:getx/ui/profileScreen.dart';
 
-import '../Exceptions/internetException.dart';
 import '../controller/bottomNavigationController.dart';
 import 'DrawerScreen.dart';
 import 'Home.dart';
+import 'UserData.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
   // Initialize the controller
@@ -38,7 +38,7 @@ class BottomNavigationScreen extends StatelessWidget {
           case 0:
             return HomePage();
           case 1:
-            return internetExceptionScreen();
+            return UserData();
           case 2:
             return Setting();
           default:
