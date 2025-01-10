@@ -49,8 +49,6 @@ class UserRepository extends GetxController {
         .collection("userData")
         .doc()
         .set(userData.toJson())
-        .whenComplete(
-            () => Get.snackbar("Success", "Your data has been created!"))
         .catchError((error, stackTrace) {
       Get.snackbar("Error", error.toString());
     });
@@ -61,7 +59,8 @@ class UserRepository extends GetxController {
         .collection('users') // Access the `users` collection
         .doc(
             FirebaseAuth.instance.currentUser?.uid) // Specify the user document
-        .collection('userData'); // Access the `userData` subcollection
+        .collection('userData') // Access the `userData` subcollection
+        .orderBy('date', descending: true); // Order by timestamp, latest first
 
     return userDataCollection.snapshots().map((querySnapshot) {
       return querySnapshot.docs
@@ -83,6 +82,29 @@ class UserRepository extends GetxController {
         Get.snackbar("Error", error.toString());
       });
     } catch (error) {
+      Get.snackbar("Error", "Failed to delete data: $error");
+    }
+  }
+
+  Future<void> deleteUserDataWithEmail(String email) async {
+    try {
+      // Reference the collection where the data is stored
+      var querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .collection('userData')
+          .where('name', isEqualTo: email)
+          .get();
+
+      // Iterate through the documents and delete them
+      for (var doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      // Show success message
+      Get.snackbar("Success", "Data deleted");
+    } catch (error) {
+      // Show error message
       Get.snackbar("Error", "Failed to delete data: $error");
     }
   }

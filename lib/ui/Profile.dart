@@ -1,27 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class Profile extends StatelessWidget {
+class EditUserFormScreen extends StatelessWidget {
+  final String userEmail; // Email of the user to fetch data for
+
+  EditUserFormScreen({required this.userEmail});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        appBar: AppBar(
+          title: Text('Edit User'),
+        ),
+        body: Column(
           children: [
-            // Example of a text widget
-            Text(
-              'Welcome to the Profile Page!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            // Name Field
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Name',
+                border: OutlineInputBorder(),
               ),
             ),
+            SizedBox(height: 16),
+
+            // Email Field
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 16),
+
+            // Phone Field
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 24),
+
+            // Update Button
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

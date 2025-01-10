@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String? id;
-  final String name;
-  final String email;
-  final String mobileNo;
-  final String? password;
-  final Timestamp? date;
+  String? id;
+  String name;
+  String email;
+  String mobileNo;
+  String? password;
+  Timestamp? date;
 
-  const UserModel({
+  UserModel({
     this.id,
     this.date,
     required this.email,
@@ -17,25 +17,28 @@ class UserModel {
     required this.mobileNo,
   });
 
-  toJson() {
+  /// Convert model to JSON for Firestore update
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'email': email,
       'password': password,
       'mobileNo': mobileNo,
-      'date': DateTime.now()
+      'date': date ?? FieldValue.serverTimestamp(),
     };
   }
 
+  /// Create a model from Firestore document
   factory UserModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();
     return UserModel(
-        id: document.id,
-        email: data?['email'],
-        password: data?['password'],
-        name: data?['name'],
-        date: data?['date'],
-        mobileNo: data?['mobileNo']);
+      id: document.id,
+      email: data?['email'] ?? '',
+      password: data?['password'],
+      name: data?['name'] ?? '',
+      date: data?['date'],
+      mobileNo: data?['mobileNo'] ?? '',
+    );
   }
 }

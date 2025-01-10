@@ -8,7 +8,7 @@ import 'AppColors.dart';
 class CustomInputField extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
-  final TextInputType inputType;
+  final TextInputType? inputType;
   final bool obscureText;
   final double fontSize;
   final double verticalPadding;
@@ -17,7 +17,7 @@ class CustomInputField extends StatelessWidget {
   CustomInputField({
     this.controller,
     required this.hintText,
-    this.inputType = TextInputType.text, // Default type is text
+    this.inputType, // Default type is text
     this.obscureText = false, // Default to not obscure text
     this.fontSize = 16.0,
     this.verticalPadding = 10.0,

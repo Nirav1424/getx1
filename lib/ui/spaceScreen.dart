@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx/ui/SignUpScreen.dart';
+import 'package:getx/Route/routes.dart';
 
 class SplaceScreen extends StatefulWidget {
   const SplaceScreen({super.key});
@@ -10,12 +11,17 @@ class SplaceScreen extends StatefulWidget {
 }
 
 class _SplaceScreenState extends State<SplaceScreen> {
+  // This widget is the root of your application.
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     super.initState();
     // Navigate to the next screen after a delay
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.offAll(() => SignUpScreen());
+    Future.delayed(const Duration(seconds: 2), () {
+      user != null
+          ? Get.offAllNamed(RoutesClass.getBotomNav())
+          : Get.offAllNamed(RoutesClass.getLogin());
     });
   }
 

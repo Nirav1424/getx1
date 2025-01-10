@@ -4,66 +4,54 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../ui/bottomNavigationBar.dart';
+import '../Route/routes.dart';
 
 class LoginController extends GetxController {
-  // Text controllers for email and password
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-
-  // Firebase Auth instance
   FirebaseAuth auth = FirebaseAuth.instance;
-
-  // Track the loading state
   RxBool isLoading = false.obs;
 
-  // Login function
   Future<void> login() async {
     if (isLoading.value) return;
 
     try {
-      isLoading.value = true; // Start loading
+      isLoading.value = true;
       await auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
       Get.snackbar("Login Success", "Welcome back!");
-      Get.offAll(BottomNavigationScreen()); // Navigate to home screen
+      Get.offAllNamed(RoutesClass.getBotomNav());
     } on SocketException {
-      // Handle no internet connection error
       Get.snackbar("Connection Error",
           "No internet connection. Please check your network.");
     } on FirebaseAuthException catch (e) {
-      print(e.code);
-      String errorMessage;
-      switch (e.code) {
-        case 'invalid-credential':
-          errorMessage = "The email & password is not valid.";
-          break;
-        case 'channel-error':
-          errorMessage = "can not empty ";
-          break;
-        case 'network-request-failed':
-          errorMessage = "pleas on Network";
-          // Get.to(internetExceptionScreen());
-          break;
-        default:
-          errorMessage = "An unexpected error occurred. Please try again.";
-      }
-      Get.snackbar("Login Failed", errorMessage);
+      _handleFirebaseError(e);
     } catch (e) {
-      // Handle other errors
       Get.snackbar("Error", "Something went wrong. Please try again.");
     } finally {
-      isLoading.value = false; // Reset loading state
+      isLoading.value = false;
     }
   }
 
-// @override
-// void onClose() {
-//
-//   emailController.dispose();
-//   passwordController.dispose();
-//   super.onClose();
-// }
+  void _handleFirebaseError(FirebaseAuthException e) {
+    String errorMessage;
+
+    switch (e.code) {
+      case 'invalid-credential':
+        errorMessage = "The email & password are not valid.";
+        break;
+      case 'channel-error':
+        errorMessage = "Cannot be empty.";
+        break;
+      case 'network-request-failed':
+        errorMessage = "Please check your network connection.";
+        break;
+      default:
+        errorMessage = "An unexpected error occurred. Please try again.";
+    }
+
+    Get.snackbar("Login Failed", errorMessage);
+  }
 }

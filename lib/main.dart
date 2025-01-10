@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx/ui/bottomNavigationBar.dart';
-import 'package:getx/ui/spaceScreen.dart';
 
+import 'Route/routes.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,12 +18,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  // This widget is the root of your application.
-  User? user = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
-    print('user is  ${user?.email}');
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -35,7 +29,8 @@ class MyApp extends StatelessWidget {
       //   useMaterial3: true,
       // ),
 
-      home: user == null ? SplaceScreen() : BottomNavigationScreen(),
+      initialRoute: RoutesClass.getHomeRoute(),
+      getPages: RoutesClass.routes,
       // getPages: AppRoutes.appRouts(),
     );
   }

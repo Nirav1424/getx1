@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+import '../Route/routes.dart';
 import '../constant/AppColors.dart';
 import '../constant/customTextFormFeild.dart';
 import '../constant/customeButton.dart';
@@ -8,7 +10,6 @@ import '../constant/passwordFeild.dart';
 import '../controller/loginController.dart';
 import '../controller/togglController.dart';
 import '../responsive/Responsive.dart';
-import 'SignUpScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   final LoginController loginController = Get.put(LoginController());
@@ -124,7 +125,7 @@ class LoginScreen extends StatelessWidget {
             Text("I have No account?"),
             TextButton(
               onPressed: () {
-                Get.to(SignUpScreen());
+                Get.offNamed(RoutesClass.getSignup());
               },
               child: Text(
                 "Sign Up",
