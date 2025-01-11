@@ -91,7 +91,8 @@ class HomePage extends StatelessWidget {
             }
           } else {
             return Center(
-              child: Lottie.asset("assets/animations/loading.json"),
+              child: CircularProgressIndicator(),
+              //   Lottie.asset("assets/animations/loading.json")
             );
           }
         },

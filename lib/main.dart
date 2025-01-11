@@ -11,7 +11,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Get.snackbar("welcome", "nirav");
+
   runApp(MyApp());
 }
 
