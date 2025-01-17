@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/constant/AppColors.dart';
-import 'package:getx/ui/Profile.dart';
+import 'package:getx/ui/DoneProperty.dart';
 import 'package:getx/ui/Setting.dart';
 
-import '../Route/routes.dart';
 import '../controller/bottomNavigationController.dart';
 import 'DrawerScreen.dart';
 import 'Home.dart';
@@ -22,29 +21,30 @@ class BottomNavigationScreen extends StatelessWidget {
     print("build");
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Home Page'),
         backgroundColor: AppColors.primaryColor,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.toNamed(RoutesClass.getProfile(),
-                    arguments: {'email': email});
-              },
-              icon: Icon(Icons.person))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         Get.toNamed(RoutesClass.getProfile(),
+        //             arguments: {'email': email});
+        //       },
+        //       icon: Icon(Icons.person))
+        // ],
       ),
       drawer: CustomDrawer(),
       body: Obx(() {
         // Return the widget based on the selected index
         switch (bottomNavController.selectedIndex.value) {
           case 0:
-            return HomePage();
+            return rentPage();
           case 1:
-            return Setting();
+            return salePage();
           case 2:
-            return Setting();
+            return DoneProperty();
           default:
-            return HomePage();
+            return rentPage();
         }
       }),
       bottomNavigationBar: Obx(() {
@@ -57,16 +57,16 @@ class BottomNavigationScreen extends StatelessWidget {
           },
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+              icon: Icon(Icons.account_balance),
+              label: 'Rent',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              icon: Icon(Icons.account_balance_wallet_outlined),
+              label: 'Sale',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+              icon: Icon(Icons.add_task),
+              label: 'Done',
             ),
           ],
         );

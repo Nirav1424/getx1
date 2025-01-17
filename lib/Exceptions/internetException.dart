@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:getx/constant/AppColors.dart';
 import 'package:getx/constant/customeButton.dart';
-import 'package:getx/ui/Setting.dart';
 
 class internetExceptionScreen extends StatefulWidget {
   const internetExceptionScreen({super.key});

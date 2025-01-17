@@ -88,14 +88,15 @@ class AmountInputScreen extends StatelessWidget {
                   text: "Save Details",
                   onTap: userController.isButtonEnabled.value
                       ? () {
-                          colorCode == AppColors.REDTEXT
-                              ? userController.updateColor(AppColors.RED)
-                              : userController.updateColor(AppColors.GREEN);
+                          // colorCode == AppColors.REDTEXT
+                          //     ? userController.updateColor(AppColors.RED)
+                          //     : userController.updateColor(AppColors.GREEN);
                           UserDataModels userData = UserDataModels(
                             amount: int.tryParse(userController
                                     .amountController.value.text) ??
                                 0,
-                            color: userController.selectedColor.value,
+
+                            // color: userController.selectedColor.value,
                             totalAmount: userController.totalBalance.value
                                 .toDouble()
                                 .toInt(),

@@ -4,14 +4,19 @@ class UserDataModels {
   final String? id;
   final String name;
   final int amount;
+  final String? number;
   final int? totalAmount;
   final Timestamp? date;
-  final String? color;
+  final String? address;
+  final String? email;
+
   const UserDataModels({
     this.id,
     this.date,
-    this.color,
+    this.address,
     this.totalAmount,
+    this.number,
+    this.email,
     required this.amount,
     required this.name,
   });
@@ -20,9 +25,11 @@ class UserDataModels {
     return {
       'name': name,
       'amount': amount,
+      'number': number,
       'date': DateTime.now(),
-      'color': color,
+      'address': address,
       'totalAmount': totalAmount,
+      'email': email,
     };
   }
 
@@ -33,8 +40,10 @@ class UserDataModels {
         id: document.id,
         name: data?['name'],
         date: data?['date'],
-        totalAmount: data?['totalAmount'],
-        color: data?['color'] ?? '#000000',
+        number: data?['number'],
+        email: data?['email'],
+        totalAmount: data?['totalAmount'] ?? 0,
+        address: data?['address'] ?? 'null',
         amount: (data?['amount']).toInt());
   }
 }

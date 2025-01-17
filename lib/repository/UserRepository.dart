@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:getx/Models/UserModel.dart';
 
@@ -8,6 +9,11 @@ import '../Models/UserDataModel.dart';
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
   final db = FirebaseFirestore.instance;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   createUser(UserModel user) async {
     await db
@@ -42,6 +48,15 @@ class UserRepository extends GetxController {
         .update(user.toJson());
   }
 
+  Future<void> updateUserDataProperties(UserDataModels user) async {
+    await db
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("userData")
+        .doc(user.id)
+        .update(user.toJson());
+  }
+
   Future<void> createUserData(UserDataModels userData) async {
     await db
         .collection("users")
@@ -54,18 +69,48 @@ class UserRepository extends GetxController {
     });
   }
 
+  Future<void> createUserDataAllUser(UserDataModels userData) async {
+    await db
+        .collection("users1")
+        .doc()
+        .set(userData.toJson())
+        .catchError((error, stackTrace) {
+      Get.snackbar("Error", error.toString());
+    });
+  }
+
+  // RxList<UserDataModels> filteredUserData = <UserDataModels>[].obs;
+  // RxString searchQuery = ''.obs;
+  // TextEditingController serchController = TextEditingController();
+
   Stream<List<UserDataModels>> getUserDataDetails() {
     final userDataCollection = FirebaseFirestore.instance
-        .collection('users') // Access the `users` collection
-        .doc(
-            FirebaseAuth.instance.currentUser?.uid) // Specify the user document
-        .collection('userData') // Access the `userData` subcollection
-        .orderBy('date', descending: true); // Order by timestamp, latest first
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('userData')
+        .orderBy('date', descending: true);
 
     return userDataCollection.snapshots().map((querySnapshot) {
       return querySnapshot.docs
           .map((doc) => UserDataModels.fromSnapshot(doc))
           .toList();
+    });
+  }
+
+  Stream<UserDataModels?> getOnlySelectedData(String id) {
+    final documentSnapshotStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('userData')
+        .doc(id)
+        .snapshots();
+
+    return documentSnapshotStream.map((documentSnapshot) {
+      if (documentSnapshot.exists) {
+        return UserDataModels.fromSnapshot(documentSnapshot);
+      } else {
+        return null;
+      }
     });
   }
 
@@ -88,23 +133,18 @@ class UserRepository extends GetxController {
 
   Future<void> deleteUserDataWithEmail(String email) async {
     try {
-      // Reference the collection where the data is stored
       var querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .collection('userData')
           .where('name', isEqualTo: email)
           .get();
-
-      // Iterate through the documents and delete them
       for (var doc in querySnapshot.docs) {
         await doc.reference.delete();
       }
 
-      // Show success message
       Get.snackbar("Success", "Data deleted");
     } catch (error) {
-      // Show error message
       Get.snackbar("Error", "Failed to delete data: $error");
     }
   }

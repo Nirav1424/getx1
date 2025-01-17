@@ -12,11 +12,15 @@ class CustomInputField extends StatelessWidget {
   final bool obscureText;
   final double fontSize;
   final double verticalPadding;
+  final int? maxLength;
+  final int? maxLines;
 
   // Constructor to initialize the controller and other properties
   CustomInputField({
     this.controller,
     required this.hintText,
+    this.maxLength,
+    this.maxLines,
     this.inputType, // Default type is text
     this.obscureText = false, // Default to not obscure text
     this.fontSize = 16.0,
@@ -33,8 +37,9 @@ class CustomInputField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
       child: TextField(
+        maxLength: maxLength,
         controller: controller,
-
+        maxLines: maxLines,
         keyboardType: inputType,
         // Set the input type (email, phone, etc.)
         obscureText: obscureText,
@@ -68,6 +73,10 @@ class CustomInputField extends StatelessWidget {
       return Icon(Icons.phone);
     } else if (hintText.toLowerCase().contains("name")) {
       return Icon(Icons.person);
+    } else if (hintText.toLowerCase().contains("rent")) {
+      return Icon(Icons.currency_rupee);
+    } else if (hintText.toLowerCase().contains("address")) {
+      return Icon(Icons.location_on);
     }
     return null;
   }

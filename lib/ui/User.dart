@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:getx/Route/routes.dart';
 import 'package:getx/constant/AppColors.dart';
 import 'package:getx/constant/customeButton.dart';
-import 'package:getx/ui/profileScreen.dart';
 import 'package:intl/intl.dart';
 
 import '../Models/UserDataModel.dart';
@@ -49,7 +48,7 @@ class _UsersState extends State<Users> {
         backgroundColor: AppColors.primaryColor,
         title: InkWell(
           onTap: () {
-            Get.to(profileScreen(), arguments: {'email': email});
+            // Get.to(profileScreen(), arguments: {'email': email});
           },
           child: Text(name,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
@@ -144,10 +143,10 @@ class _UsersState extends State<Users> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Color(int.parse(
-                                          userData.color!.substring(1, 7),
-                                          radix: 16) +
-                                      0xFF000000),
+                                  // color: Color(int.parse(
+                                  //         userData.color!.substring(1, 7),
+                                  //         radix: 16) +
+                                  //     0xFF000000),
                                 ),
                               ),
                               trailing: IconButton(
@@ -198,7 +197,7 @@ class _UsersState extends State<Users> {
                     color: AppColors.colorFailed,
                     text: "You Gave ₹ ",
                     onTap: () {
-                      userController.updateColor(AppColors.RED);
+                      // userController.updateColor(AppColors.RED);
 
                       Get.to(() => AmountInputScreen(), arguments: {
                         'email': email,
@@ -215,7 +214,7 @@ class _UsersState extends State<Users> {
                     color: AppColors.colorSuccess,
                     text: "You Got ₹ ",
                     onTap: () {
-                      userController.updateColor(AppColors.GREEN);
+                      // userController.updateColor(AppColors.GREEN);
                       Get.to(() => AmountInputScreen(), arguments: {
                         'email': email,
                         'name': name,

@@ -3,7 +3,6 @@ import 'package:getx/ui/LoginScreen.dart';
 import 'package:getx/ui/SignUpScreen.dart';
 import 'package:getx/ui/bottomNavigationBar.dart';
 
-import '../ui/profileScreen.dart';
 import '../ui/spaceScreen.dart';
 
 class RoutesClass {
@@ -28,6 +27,6 @@ class RoutesClass {
     GetPage(name: BottomNavigation, page: () => BottomNavigationScreen()),
     GetPage(name: login, page: () => LoginScreen()),
     GetPage(name: signup, page: () => SignUpScreen()),
-    GetPage(name: profile, page: () => profileScreen())
+    // GetPage(name: profile, page: () => profileScreen())
   ];
 }

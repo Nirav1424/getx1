@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
   final Function onTap;
   final double fontSize;
   final double padding;
-  final double height;
+  final double? height;
   final bool isLoading;
   final Color color;
 
